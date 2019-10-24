@@ -30,8 +30,10 @@ public class Coordinate {
 	private double z;
 
 	@Override
-    public boolean equals(Object o) { 
-		return isEqual((Coordinate)o);
+    public boolean equals(Object o) {
+		if(o instanceof Coordinate) {
+		return isEqual((Coordinate)o);}
+		else{return false;}
 	}
 	
 	public double getDistance(Coordinate comparedCoordinate) {
