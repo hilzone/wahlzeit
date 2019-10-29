@@ -1,4 +1,6 @@
+
 package org.wahlzeit.model;
+import java.util.Objects;
 
 public class Coordinate {
 	public double getX() {
@@ -36,6 +38,19 @@ public class Coordinate {
 		else{return false;}
 	}
 	
+	   @Override
+	    public int hashCode() {
+	        return Objects.hash(x, y, z);
+	    }
+	
+	
+	public Coordinate(double x, double y, double z) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.z = z;
+	}
+
 	public double getDistance(Coordinate comparedCoordinate) {
 		double result = Math.sqrt(
 							Math.pow((comparedCoordinate.x - this.x), 2)
