@@ -20,6 +20,9 @@
 
 package org.wahlzeit.services;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+
 import org.junit.Test;
 
 import junit.framework.TestCase;
@@ -40,19 +43,39 @@ public class EmailAddressTest extends TestCase {
 	 *
 	 */
 	public void testGetEmailAddressFromString() {
-		// invalid email addresses are allowed for local testing and online avoided by Google
+		// invalid email addresses are allowed for local testing and online avoided by
+		// Google
 
 		assertTrue(createEmailAddressIgnoreException("bingo@bongo"));
 		assertTrue(createEmailAddressIgnoreException("bingo@bongo.com"));
 		assertTrue(createEmailAddressIgnoreException("bingo.bongo@bongo.com"));
 		assertTrue(createEmailAddressIgnoreException("bingo+bongo@bango"));
 	}
+
 	@Test
 	public void testGetEmailAddressFromString2() {
-		// invalid email addresses are allowed for local testing and online avoided by Google
+		// invalid email addresses are allowed for local testing and online avoided by
+		// Google
 
 		assertTrue(createEmailAddressIgnoreException("com.top kek"));
 
+	}
+
+	
+	@Test
+	public void testAsInternetAddress() {
+		EmailAddress TestAddress = new EmailAddress("bingo.bongo@bongo.com");
+		InternetAddress TestInetAddress = null;
+		try {
+			TestInetAddress = new InternetAddress("bingo.bongo@bongo.com");
+			
+		} catch (AddressException e) {
+			// TODO Auto-generated catch block
+			
+			e.printStackTrace();
+		}
+		assertEquals(TestAddress.asInternetAddress(),TestInetAddress);
+	
 	}
 	/**
 	 *
@@ -75,4 +98,3 @@ public class EmailAddressTest extends TestCase {
 	}
 
 }
-
