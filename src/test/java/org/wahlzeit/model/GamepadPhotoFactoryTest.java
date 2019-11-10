@@ -10,13 +10,13 @@ import org.junit.rules.RuleChain;
 import org.wahlzeit.testEnvironmentProvider.LocalDatastoreServiceTestConfigProvider;
 
 public class GamepadPhotoFactoryTest {
-	static GamepadPhotoFactory instance;
+	  GamepadPhotoFactory instance =new GamepadPhotoFactory();
 	@ClassRule
 	public static RuleChain ruleChain = RuleChain.outerRule(new LocalDatastoreServiceTestConfigProvider());
-	@BeforeClass
-	public static void setUp() throws Exception {
-		instance = new GamepadPhotoFactory();
-		GamepadPhotoFactory.initialize();
+	@Before
+	public  void setUp() throws Exception {
+	//	instance = new GamepadPhotoFactory();
+	//	GamepadPhotoFactory.initialize();
 	}
 
 	@Test public void createPhotoTest() {
