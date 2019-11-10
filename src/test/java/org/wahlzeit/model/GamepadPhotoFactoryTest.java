@@ -2,6 +2,7 @@ package org.wahlzeit.model;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -15,7 +16,7 @@ public class GamepadPhotoFactoryTest {
 	@BeforeClass
 	public static void setUp() throws Exception {
 		instance = new GamepadPhotoFactory();
-		instance.initialize();
+		GamepadPhotoFactory.initialize();
 	}
 
 	@Test public void createPhotoTest() {
