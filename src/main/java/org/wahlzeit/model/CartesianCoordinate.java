@@ -8,19 +8,21 @@ public class CartesianCoordinate implements Coordinate {
 	private double y;
 	private double z;
 	
-	public double getX() {
-		return x;
-	}
 
-	public void setX(double x) {
-		this.x = x;
-	}
 
 	public CartesianCoordinate(double x, double y, double z) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.z = z;
+	}
+	
+	public double getX() {
+		return x;
+	}
+
+	public void setX(double x) {
+		this.x = x;
 	}
 
 	public double getY() {
