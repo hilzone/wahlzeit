@@ -1,18 +1,18 @@
 package org.wahlzeit.model;
 
 public class Location {
-private DepractedCoordinate coordinate;
+private Coordinate coordinate;
 
-public Location(DepractedCoordinate coordinate) {
+public Location(Coordinate coordinate) {
 	super();
 	this.coordinate = coordinate;
 }
 
-public DepractedCoordinate getCoordinate() {
+public Coordinate getCoordinate() {
 	return coordinate;
 }
 
-public void setCoordinate(DepractedCoordinate coordinate) {
+public void setCoordinate(Coordinate coordinate) {
 	this.coordinate = coordinate;
 }
 

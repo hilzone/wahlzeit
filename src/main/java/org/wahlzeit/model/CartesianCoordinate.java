@@ -2,7 +2,7 @@ package org.wahlzeit.model;
 
 import java.util.Objects;
 
-public class CartesianCoordinate implements Coordinate {
+public class CartesianCoordinate extends abstractCoordinate {
 
 	private double x;
 	private double y;
@@ -50,12 +50,9 @@ public class CartesianCoordinate implements Coordinate {
 	public CartesianCoordinate asCartesianCoordinate() {
 		return this;
 	}
-	@Override
-	public double getCartesianDistance(Coordinate Coord) {
-		 return doGetCartesianDistance(Coord.asCartesianCoordinate());
-	}
+	
 
-	public double doGetCartesianDistance(CartesianCoordinate coord) {
+	public double doGetDistance(Coordinate coord) {
 		double result = Math.sqrt(
 				Math.pow((coord.asCartesianCoordinate().x - this.x), 2)
 				+ Math.pow((coord.asCartesianCoordinate().y - this.y), 2)
@@ -76,13 +73,16 @@ public class CartesianCoordinate implements Coordinate {
 		
 	}
 
-	private double doGetCentralAngle(Coordinate coord) {
-		return getCentralAngle(coord.asSphericCoordinate());
+	protected double doGetCentralAngle(Coordinate coord) {
+		return 0; //placeHolder
 		
 	}
 
 	@Override
 	public boolean isEqual(Coordinate comparedCoord) {
+		if(comparedCoord == this) {
+			return true;
+		}
 		
 		double checkX = comparedCoord.asCartesianCoordinate().x - this.x;
 		double checkY = comparedCoord.asCartesianCoordinate().y - this.y;

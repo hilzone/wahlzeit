@@ -1,30 +1,27 @@
 package org.wahlzeit.model;
 
-public class SphericCoordinate implements Coordinate  {
- private double phi;    // arccos(z/r)  azimuth
- private double theta;  // arctan(y/x)  inclination
+public class SphericCoordinate extends abstractCoordinate  {
+ private double longitude;    // arccos(z/r)  azimuth
+ private double latitude;  // arctan(y/x)  inclination
  private double radius; //Root(square(x)+square(y)+square(z))
  
 
-public SphericCoordinate(double phi, double theta, double radius) {
+public SphericCoordinate(double longitude, double latitude, double radius) {
 	
-	this.phi = phi;
-	this.theta = theta;
+	this.longitude = longitude;
+	this.latitude = latitude;
 	this.radius = radius;
 }
 //private double deltaSigma; // central angle
 @Override
 public CartesianCoordinate asCartesianCoordinate() {
-	double x = calcX(this.phi, this.theta, this.radius);
-	double y =calcY(this.phi, this.theta, this.radius);
-	double z = calcZ(this.phi, this.theta, this.radius);
+	double x = calcX(this.longitude, this.latitude, this.radius);
+	double y =calcY(this.longitude, this.latitude, this.radius);
+	double z = calcZ(this.longitude, this.latitude, this.radius);
 	CartesianCoordinate coordCart = new CartesianCoordinate(x, y, z);
 	return coordCart;
 }
-@Override
-public double getCartesianDistance(Coordinate coord) {
-	return this.asCartesianCoordinate().getCartesianDistance(coord);
-}
+
 //private double DoGetCartesianDistance(Coordinate coord) {
 	
 //	return getCartesianDistance(coord.asCartesianCoordinate());
@@ -35,15 +32,12 @@ public SphericCoordinate asSphericCoordinate() {
 	return this;
 }
 @Override
-public double getCentralAngle(Coordinate coord) {
-	return doGetCentralAngle(coord.asSphericCoordinate());
-	 
-}
-private double doGetCentralAngle(SphericCoordinate sphCoord) {
-	double lati= 1.5708 - this.theta;
-	double longi = this.phi;
-	double lati2 = 1.5708 - sphCoord.theta;
-	double longi2 = sphCoord.phi;
+protected double doGetCentralAngle(Coordinate coord) {
+	SphericCoordinate sphCoord =coord.asSphericCoordinate();
+	double lati= 1.5708 - this.latitude; // latitude = 1.5708 - theta
+	double longi = this.longitude;
+	double lati2 = 1.5708 - sphCoord.latitude;
+	double longi2 = sphCoord.longitude;
 	double centralAngle;
 	centralAngle = //Vincenty Formula
 			Math.atan(
@@ -70,19 +64,24 @@ public boolean isEqual(Coordinate Coord) {
 	return this.asCartesianCoordinate().isEqual(Coord.asCartesianCoordinate());
 }
 
-private double calcX(double phi, double theta , double radius) {
-	double x = radius*(Math.sin(theta))*(Math.cos(phi));
+private double calcX(double longitude, double latitude , double radius) {
+	double x = radius*(Math.sin(latitude))*(Math.cos(longitude));
 	return x;
 }
 
-private double calcY(double phi, double theta , double radius) {
-	double y = radius*(Math.sin(theta))*(Math.sin(phi));
+private double calcY(double longitude, double latitude , double radius) {
+	double y = radius*(Math.sin(latitude))*(Math.sin(longitude));
 	return y;
 }
 
-private double calcZ(double phi, double theta , double radius) {
-	double z = radius*(Math.cos(theta));
+private double calcZ(double longitude, double latitude , double radius) {
+	double z = radius*(Math.cos(latitude));
 	return z;
+}
+@Override
+protected double doGetDistance(Coordinate coord) {
+	// TODO Auto-generated method stub
+	return 0;
 }
 
  
