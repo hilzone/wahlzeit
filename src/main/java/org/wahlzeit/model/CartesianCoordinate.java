@@ -1,7 +1,8 @@
 package org.wahlzeit.model;
 
-import static org.junit.Assert.assertNotNull;
 import java.util.Objects;
+
+import static org.junit.Assert.assertNotNull;
 import static org.wahlzeit.model.AssertionMethods.assertDistanceDouble;
 
 public class CartesianCoordinate extends abstractCoordinate {
