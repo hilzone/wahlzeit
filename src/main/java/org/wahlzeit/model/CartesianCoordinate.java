@@ -1,6 +1,8 @@
 package org.wahlzeit.model;
 
+import static org.junit.Assert.assertNotNull;
 import java.util.Objects;
+import static org.wahlzeit.model.AssertionMethods.assertDistanceDouble;
 
 public class CartesianCoordinate extends abstractCoordinate {
 
@@ -12,20 +14,25 @@ public class CartesianCoordinate extends abstractCoordinate {
 
 	public CartesianCoordinate(double x, double y, double z) {
 		super();
+		assertNotNull(x);
+		assertNotNull(y);
+		assertNotNull(z);
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
 	
 	public double getX() {
+		assertClassInvariants();
 		return x;
 	}
 
-	public void setX(double x) {
+	public void setX(double x) { 
 		this.x = x;
 	}
 
 	public double getY() {
+		assertClassInvariants() ;
 		return y;
 	}
 
@@ -34,6 +41,7 @@ public class CartesianCoordinate extends abstractCoordinate {
 	}
 
 	public double getZ() {
+		assertClassInvariants();
 		return z;
 	}
 
@@ -53,17 +61,21 @@ public class CartesianCoordinate extends abstractCoordinate {
 	
 
 	public double doGetDistance(Coordinate coord) {
+		assertClassInvariants(); 
 		double result = Math.sqrt(
 				Math.pow((coord.asCartesianCoordinate().x - this.x), 2)
 				+ Math.pow((coord.asCartesianCoordinate().y - this.y), 2)
 				+ Math.pow((coord.asCartesianCoordinate().z - this.z), 2)
 			);
+		assertClassInvariants();
+		assertDistanceDouble(result);
 		return result;
 	}
 
 	@Override
 	public SphericCoordinate asSphericCoordinate() {
 		SphericCoordinate sphCoord = new SphericCoordinate(calcRadius(this.x, this.y, this.z), calcPhi(), calcTheta());
+		assertSphericCoord(sphCoord);
 		return sphCoord;
 	}
 
@@ -108,6 +120,16 @@ public class CartesianCoordinate extends abstractCoordinate {
 		double theta = Math.acos(this.z/Math.sqrt((x*x)+(y*y)+(z*z)));
 		return theta;
 	}
+	private void assertClassInvariants() {
+		assertNotNull(this.x);
+		assertNotNull(this.y);
+		assertNotNull(this.z);
+	}
+	
+	public void assertSphericCoord(Coordinate Coord) {
+		assertNotNull(Coord);
+		assert(Coord instanceof SphericCoordinate);
+	}	
 
 	
 }

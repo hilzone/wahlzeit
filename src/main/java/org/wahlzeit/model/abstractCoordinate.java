@@ -1,5 +1,7 @@
 package org.wahlzeit.model;
 
+import static org.junit.Assert.assertNotNull;
+
 public abstract class abstractCoordinate implements Coordinate {
 
 	@Override
@@ -7,7 +9,10 @@ public abstract class abstractCoordinate implements Coordinate {
 
 	@Override
 	public   double getCartesianDistance(Coordinate coord) {
-		return this.asCartesianCoordinate().doGetDistance(coord);
+		assertNotNull(coord);
+		double distance = this.asCartesianCoordinate().doGetDistance(coord);
+		
+		return distance;
 	}
 	protected abstract double doGetDistance(Coordinate coord);
 	@Override
@@ -15,7 +20,9 @@ public abstract class abstractCoordinate implements Coordinate {
 
 	@Override
 	public double getCentralAngle(Coordinate coord) {
-		return this.asSphericCoordinate().doGetCentralAngle(coord);
+		assertNotNull(coord);
+		double centralAngle = this.asSphericCoordinate().doGetCentralAngle(coord);
+		return centralAngle;
 	}
 	protected abstract double doGetCentralAngle(Coordinate coord);
 	

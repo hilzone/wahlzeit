@@ -1,5 +1,8 @@
 package org.wahlzeit.model;
 
+import static org.junit.Assert.assertNotNull;
+import static org.wahlzeit.model.AssertionMethods.*;
+
 public class SphericCoordinate extends abstractCoordinate  {
  private double longitude;    // arccos(z/r)  azimuth
  private double latitude;  // arctan(y/x)  inclination
@@ -19,6 +22,9 @@ public CartesianCoordinate asCartesianCoordinate() {
 	double y =calcY(this.longitude, this.latitude, this.radius);
 	double z = calcZ(this.longitude, this.latitude, this.radius);
 	CartesianCoordinate coordCart = new CartesianCoordinate(x, y, z);
+	assertCartesianCoord(coordCart);
+	assertClassInvariants();
+	
 	return coordCart;
 }
 
@@ -27,13 +33,40 @@ public CartesianCoordinate asCartesianCoordinate() {
 //	return getCartesianDistance(coord.asCartesianCoordinate());
 //}
 
+public double getLongitude() {
+	assertClassInvariants();
+	return longitude;
+}
+
+public void setLongitude(double longitude) {
+	this.longitude = longitude;
+}
+public double getLatitude() {
+	assertClassInvariants();
+	return latitude;
+}
+public void setLatitude(double latitude) {
+	this.latitude = latitude;
+}
+public double getRadius() {
+	assertClassInvariants();
+	return radius;
+}
+public void setRadius(double radius) {
+	this.radius = radius;
+}
 @Override
 public SphericCoordinate asSphericCoordinate() {
 	return this;
 }
 @Override
 protected double doGetCentralAngle(Coordinate coord) {
+	assertClassInvariants();
+	
 	SphericCoordinate sphCoord =coord.asSphericCoordinate();
+	assertNotNull (sphCoord.radius);
+	assertLongitude(sphCoord.longitude);
+	assertLatitude(sphCoord.latitude);
 	double lati= 1.5708 - this.latitude; // latitude = 1.5708 - theta
 	double longi = this.longitude;
 	double lati2 = 1.5708 - sphCoord.latitude;
@@ -55,12 +88,13 @@ protected double doGetCentralAngle(Coordinate coord) {
 				)/
 				(Math.sin(lati)*Math.sin(lati2)+Math.cos(lati)*Math.cos(lati2)*Math.cos(Math.abs(longi2-longi)))
 			);
+	assertClassInvariants();
 	return centralAngle;
 }
 // use isEqual implementation of CartesianCoordinate
 @Override
 public boolean isEqual(Coordinate Coord) {
-	
+	assertClassInvariants();
 	return this.asCartesianCoordinate().isEqual(Coord.asCartesianCoordinate());
 }
 
@@ -84,5 +118,13 @@ protected double doGetDistance(Coordinate coord) {
 	return 0;
 }
 
- 
+private void assertClassInvariants() {
+	assertNotNull (this.radius);
+	assertLongitude(this.longitude);
+	assertLatitude(this.latitude);
+}
+public void assertCartesianCoord(Coordinate Coord) {
+	assertNotNull(Coord);
+	assert(Coord instanceof CartesianCoordinate);
+}	
 }
