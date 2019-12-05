@@ -20,6 +20,7 @@
 
 package org.wahlzeit.model;
 
+import org.wahlzeit.exceptions.PhotoCreationFailedException;
 import org.wahlzeit.services.LogBuilder;
 
 import java.util.logging.Logger;
@@ -81,8 +82,9 @@ public class PhotoFactory {
 
 	/**
 	 * Creates a new photo with the specified id
+	 * @throws PhotoCreationFailedException 
 	 */
-	public Photo createPhoto(PhotoId id) {
+	public Photo createPhoto(PhotoId id) throws PhotoCreationFailedException {
 		return new Photo(id);
 	}
 

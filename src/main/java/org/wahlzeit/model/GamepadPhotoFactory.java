@@ -2,6 +2,7 @@ package org.wahlzeit.model;
 
 import java.util.logging.Logger;
 
+import org.wahlzeit.exceptions.PhotoCreationFailedException;
 import org.wahlzeit.services.LogBuilder;
 
 public class GamepadPhotoFactory extends PhotoFactory {
@@ -38,21 +39,35 @@ public class GamepadPhotoFactory extends PhotoFactory {
 	
 	/**
 	 * Creates a new gamepadphoto with the specified id
+	 * @throws PhotoCreationFailedException 
 	 */
 	
 	@Override
-	public Photo createPhoto(PhotoId id) {
-		return new Photo(id);
+	public Photo createPhoto(PhotoId id) throws PhotoCreationFailedException  {
+		Photo photo;
+		try {
+		photo = new Photo(id);
+		} catch (IllegalArgumentException e) {
+			throw new PhotoCreationFailedException( e.getMessage());
+		}
+		return photo;
 	}
-	public GamepadPhoto createGamepadPhoto() {
+	public GamepadPhoto createGamepadPhoto()   {
 		GamepadPhoto gamepadPhoto;
+		
 		gamepadPhoto = new GamepadPhoto();
+		
+		
 		return gamepadPhoto;
 	}
 	
-	public GamepadPhoto createGamepadPhoto(PhotoId id) {
+	public GamepadPhoto createGamepadPhoto(PhotoId id)throws PhotoCreationFailedException {
 		GamepadPhoto gamepadPhoto;
+		try {
 		gamepadPhoto = new GamepadPhoto(id);
+		} catch (IllegalArgumentException e) {
+			throw new PhotoCreationFailedException(e.getMessage());
+		}
 		return gamepadPhoto;
 	}
 	/**

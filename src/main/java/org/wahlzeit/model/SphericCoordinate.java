@@ -3,7 +3,7 @@ package org.wahlzeit.model;
 import static org.junit.Assert.assertNotNull;
 import static org.wahlzeit.model.AssertionMethods.*;
 
-public class SphericCoordinate extends abstractCoordinate  {
+public class SphericCoordinate extends AbstractCoordinate  {
  private double longitude;    // arccos(z/r)  azimuth
  private double latitude;  // arctan(y/x)  inclination
  private double radius; //Root(square(x)+square(y)+square(z))

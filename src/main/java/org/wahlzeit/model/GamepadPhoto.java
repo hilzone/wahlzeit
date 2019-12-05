@@ -1,5 +1,7 @@
 package org.wahlzeit.model;
 
+import static org.junit.Assert.assertNotNull;
+
 public class GamepadPhoto extends Photo {
 
 	
@@ -11,6 +13,12 @@ public class GamepadPhoto extends Photo {
 	}
 
 	public void setColorOfGamepad(String colorOfGamepad) {
+		
+		try {
+			assertNotNull(colorOfGamepad);
+			} catch(Throwable e) {
+				throw new IllegalArgumentException("Null dectected, Color of Gamepad may not be null");
+			}
 		ColorOfGamepad = colorOfGamepad;
 	}
 
@@ -20,6 +28,11 @@ public class GamepadPhoto extends Photo {
 
 	public void setTypeOfGamepad(String typeOfGamepad) {
 		TypeOfGamepad = typeOfGamepad;
+		try {
+			assertNotNull(typeOfGamepad);
+			} catch(Throwable e) {
+				throw new IllegalArgumentException("Null dectected, Type of Gamepad may not be null");
+			}
 	}
 
 	public GamepadPhoto() {
@@ -27,7 +40,7 @@ public class GamepadPhoto extends Photo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public GamepadPhoto(PhotoId myId) {
+	public GamepadPhoto(PhotoId myId) throws IllegalArgumentException {
 		super(myId);
 		// TODO Auto-generated constructor stub
 	}

@@ -32,6 +32,8 @@ import org.wahlzeit.services.EmailAddress;
 import org.wahlzeit.services.Language;
 import org.wahlzeit.services.ObjectManager;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.Map;
 
 /**
@@ -151,9 +153,14 @@ public class Photo extends DataObject {
 	/**
 	 * @methodtype constructor
 	 */
-	public Photo(PhotoId myId) {
-		id = myId;
-
+	public Photo(PhotoId myId) throws IllegalArgumentException {
+		try {
+			assertNotNull(id);
+			id = myId;
+		} catch( Throwable e) {
+			throw new IllegalArgumentException("Null detected, PhotoId may not be null");
+		}
+		
 		incWriteCount();
 	}
 

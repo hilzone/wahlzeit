@@ -2,7 +2,7 @@ package org.wahlzeit.model;
 
 import static org.junit.Assert.assertNotNull;
 
-public abstract class abstractCoordinate implements Coordinate {
+public abstract class AbstractCoordinate implements Coordinate {
 
 	@Override
 	public abstract CartesianCoordinate asCartesianCoordinate();

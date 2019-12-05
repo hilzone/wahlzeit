@@ -5,7 +5,7 @@ import java.util.Objects;
 import static org.junit.Assert.assertNotNull;
 import static org.wahlzeit.model.AssertionMethods.assertDistanceDouble;
 
-public class CartesianCoordinate extends abstractCoordinate {
+public class CartesianCoordinate extends AbstractCoordinate {
 
 	private double x;
 	private double y;
