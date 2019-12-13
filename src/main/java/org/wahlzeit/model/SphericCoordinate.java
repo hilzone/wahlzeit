@@ -3,13 +3,16 @@ package org.wahlzeit.model;
 import static org.junit.Assert.assertNotNull;
 import static org.wahlzeit.model.AssertionMethods.*;
 
-public class SphericCoordinate extends AbstractCoordinate  {
- private double longitude;    // arccos(z/r)  azimuth
- private double latitude;  // arctan(y/x)  inclination
- private double radius; //Root(square(x)+square(y)+square(z))
- 
+import java.util.HashMap;
 
-public SphericCoordinate(double longitude, double latitude, double radius) {
+public class SphericCoordinate extends AbstractCoordinate  {
+ private  final double longitude;    // arccos(z/r)  azimuth
+ private final double latitude;  // arctan(y/x)  inclination
+ private final double radius; //Root(square(x)+square(y)+square(z))
+ 
+private static HashMap<String, SphericCoordinate> alreadyInitSphCoords= new HashMap<String, SphericCoordinate>();
+ 
+private SphericCoordinate(double longitude, double latitude, double radius) {
 	
 	this.longitude = longitude;
 	this.latitude = latitude;
@@ -21,12 +24,13 @@ public CartesianCoordinate asCartesianCoordinate() {
 	double x = calcX(this.longitude, this.latitude, this.radius);
 	double y =calcY(this.longitude, this.latitude, this.radius);
 	double z = calcZ(this.longitude, this.latitude, this.radius);
-	CartesianCoordinate coordCart = new CartesianCoordinate(x, y, z);
+	CartesianCoordinate coordCart = getCartesianHelper(x, y ,z);
 	assertCartesianCoord(coordCart);
 	assertClassInvariants();
 	
 	return coordCart;
 }
+
 
 //private double DoGetCartesianDistance(Coordinate coord) {
 	
@@ -38,23 +42,17 @@ public double getLongitude() {
 	return longitude;
 }
 
-public void setLongitude(double longitude) {
-	this.longitude = longitude;
-}
+
 public double getLatitude() {
 	assertClassInvariants();
 	return latitude;
 }
-public void setLatitude(double latitude) {
-	this.latitude = latitude;
-}
+
 public double getRadius() {
 	assertClassInvariants();
 	return radius;
 }
-public void setRadius(double radius) {
-	this.radius = radius;
-}
+
 @Override
 public SphericCoordinate asSphericCoordinate() {
 	return this;
@@ -98,6 +96,27 @@ public boolean isEqual(Coordinate Coord) {
 	return this.asCartesianCoordinate().isEqual(Coord.asCartesianCoordinate());
 }
 
+
+public static SphericCoordinate getSphericCoordinatePointer(double longitude, double latitude, double radius){
+	String keyForCoordinate = CartesianCoordinate.keybuilder(longitude, latitude, radius); //Turns x, y, z into a String key
+	SphericCoordinate coordToBeChecked = alreadyInitSphCoords.get(keyForCoordinate);
+	if(coordToBeChecked== null) {
+
+		synchronized (alreadyInitSphCoords) {
+			if((alreadyInitSphCoords.get(keyForCoordinate))== null) {
+				coordToBeChecked = new SphericCoordinate(longitude, latitude, radius);
+				alreadyInitSphCoords.put(keyForCoordinate, coordToBeChecked);
+			}
+		}
+	}
+	return coordToBeChecked;		
+}
+//
+//
+// HELPER METHODS
+// 
+//
+
 private double calcX(double longitude, double latitude , double radius) {
 	double x = radius*(Math.sin(latitude))*(Math.cos(longitude));
 	return x;
@@ -117,6 +136,20 @@ protected double doGetDistance(Coordinate coord) {
 	// TODO Auto-generated method stub
 	return 0;
 }
+
+
+
+private CartesianCoordinate getCartesianHelper(double x, double y, double z) {
+	return CartesianCoordinate.getCartesianCoordinatePointer(x, y, z);
+	
+}
+
+//
+//
+// ASSERTION AND CLASSINVARIANTS
+//
+//
+
 
 private void assertClassInvariants() {
 	assertNotNull (this.radius);

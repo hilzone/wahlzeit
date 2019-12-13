@@ -13,8 +13,8 @@ public class SphericCoordinateTest {
 
 	@Test
 	public void testIsEqual() {
-		SphericCoordinate Coord1 = new SphericCoordinate(0.7, 0.9 ,7);
-		SphericCoordinate Coord2 = new SphericCoordinate(0.7, 0.9 ,7);
+		SphericCoordinate Coord1 = SphericCoordinate.getSphericCoordinatePointer(0.7, 0.9 ,7);
+		SphericCoordinate Coord2 = SphericCoordinate.getSphericCoordinatePointer(0.7, 0.9 ,7);
 		assertTrue(Coord1.isEqual(Coord2));
 		assertTrue(Coord1.asCartesianCoordinate().isEqual(Coord2));
 	}

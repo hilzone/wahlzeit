@@ -23,7 +23,7 @@ public class LocationTest {
 
 	@Test
 	public void testGetCoordinate() {
-		Coordinate cord = new CartesianCoordinate(1, 1, 1);
+		Coordinate cord = CartesianCoordinate.getCartesianCoordinatePointer(1, 1, 1);
 		Location loc1= new Location(cord);
 		assertTrue(loc1.getCoordinate().isEqual(cord));
 	}
