@@ -5,6 +5,11 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+@PatternInstance(
+		patternName = "Value Object",
+		participants = {"CartesianCoordinate"}
+	)
+
 public class SphericCoordinateTest {
 
 	@BeforeClass

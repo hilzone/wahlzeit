@@ -4,9 +4,16 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Objects;
 
+import org.wahlzeit.exceptions.PhotoCreationFailedException;
+
 import static org.junit.Assert.assertNotNull;
 import static org.wahlzeit.model.AssertionMethods.assertDistanceDouble;
 
+
+@PatternInstance(
+	patternName = "Value Object",
+	participants = {"CartesianCoordinate"}
+)
 public class CartesianCoordinate extends AbstractCoordinate {
 
 	private final double x;
@@ -24,6 +31,12 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		this.y = y;
 		this.z = z;
 	}
+	
+	/**
+	 * Hashmap used to implement the CartesianCoordinate according to the Value Object pattern 
+	 * the string that is used as a key consists of a concatenation of the x, y and z values of a Coordinate
+	 * for details look at the key builder function
+	 */
 	
 	private static HashMap<String, CartesianCoordinate> alreadyInitCartCoords = new HashMap<String, CartesianCoordinate>();
 		
@@ -58,7 +71,9 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		return this;
 	}
 	
-
+	/**
+	 * Returns the Cartesian Distance between two coordinates
+	 */
 	public double doGetDistance(Coordinate coord) {
 		assertClassInvariants(); 
 		double result = Math.sqrt(
@@ -71,6 +86,10 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		return result;
 	}
 
+	/**
+	 * Converts a cartesian-coordinate to a spheric-coordinates with the use of the helper methods 
+	 * getSphericCoordinatePointer, calcRadius, calcPhi and calcTheta
+	 */
 	@Override
 	public SphericCoordinate asSphericCoordinate() {
 		SphericCoordinate sphCoord = SphericCoordinate.getSphericCoordinatePointer(calcRadius(this.x, this.y, this.z), calcPhi(), calcTheta());
@@ -78,6 +97,9 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		return sphCoord;
 	}
 
+	/**
+	 * uses the implementation in spheric-coordinate to return the central angle between two coordinates
+	 */
 	@Override
 	public double getCentralAngle(Coordinate Coord) {
 		return this.asSphericCoordinate().getCentralAngle(Coord);
@@ -109,6 +131,10 @@ public class CartesianCoordinate extends AbstractCoordinate {
 				// HELPER METHODS
 				// 
 				//
+	/**
+	 *checks if the value of a coordinate was already initialized if not the value is saved in the Hashmap alreadyInitCoords
+	 *if yes the Value is retrieved out of the Hashmap
+	 */
 	
 	public static CartesianCoordinate getCartesianCoordinatePointer(double x, double y, double z){
 		String keyForCoordinate = keybuilder(x, y, z); //Turns x, y, z into a String key

@@ -5,6 +5,12 @@ import java.util.logging.Logger;
 import org.wahlzeit.exceptions.PhotoCreationFailedException;
 import org.wahlzeit.services.LogBuilder;
 
+@PatternInstance(
+		patternName = "Abstract Factory",
+		participants = {"PhotoFactory, GamepadPhotoFactory"}
+	)
+
+
 public class GamepadPhotoFactory extends PhotoFactory {
 
 	private static final Logger log = Logger.getLogger(GamepadPhotoFactory.class.getName());
@@ -52,6 +58,11 @@ public class GamepadPhotoFactory extends PhotoFactory {
 		}
 		return photo;
 	}
+	/**
+	 * Creates a new gamepadphoto 
+	 *  
+	 */
+	
 	public GamepadPhoto createGamepadPhoto()   {
 		GamepadPhoto gamepadPhoto;
 		
@@ -76,7 +87,9 @@ public class GamepadPhotoFactory extends PhotoFactory {
 	public static void initialize() {
 		getInstance(); // drops result due to getInstance() side-effects
 	}
-	
+	/**
+	 * Sets the Instance
+	 */
 	
 	protected static synchronized void setInstance(GamepadPhotoFactory gamepadPhotoFactory) {
 		if (instance != null) {

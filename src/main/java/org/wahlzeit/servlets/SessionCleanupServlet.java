@@ -4,6 +4,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import org.wahlzeit.model.Client;
 import org.wahlzeit.model.Guest;
+import org.wahlzeit.model.PatternInstance;
 import org.wahlzeit.model.UserManager;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.services.OfyService;
@@ -18,6 +19,11 @@ import java.util.logging.Logger;
 /**
  * This servlet is run to cleanup expired sessions.
  */
+@PatternInstance(
+		patternName = "Dispose",
+		participants = {"SessionCleanupServlet", "HttpServlet", "OfyService"}
+	)
+
 public class SessionCleanupServlet extends HttpServlet {
 
 	private static final String SESSION_ENTITY_TYPE = "_ah_SESSION";

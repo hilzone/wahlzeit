@@ -2,7 +2,10 @@ package org.wahlzeit.model;
 
 import java.util.logging.Logger;
 
-
+@PatternInstance(
+		patternName = "Singleton",
+		participants = {"GamepadPhotoManager"}
+	)
 
 public class GamepadPhotoManager extends PhotoManager {
 

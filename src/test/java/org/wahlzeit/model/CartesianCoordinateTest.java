@@ -48,6 +48,38 @@ public class CartesianCoordinateTest {
 		Coordinate cordSph = SphericCoordinate.getSphericCoordinatePointer(0.79, 0.96 , 1.7320);
 		double centralAngle= cordCart2.getCentralAngle(cordSph);
 		assertEquals(cordCart2.getCentralAngle(cordSph),centralAngle, 0.002);
+		
 	}
+	
+	@Test
+	public void testGetX(){
+		Coordinate cordCart1 = CartesianCoordinate.getCartesianCoordinatePointer(1, 2, 3);
+		double xValue = cordCart1.asCartesianCoordinate().getX();
+		assertEquals(xValue, 1.0, 0.01);
+		
+	}
+	
+	@Test
+	public void testGetY(){
+		Coordinate cordCart1 = CartesianCoordinate.getCartesianCoordinatePointer(1, 2, 3);
+		double yValue = cordCart1.asCartesianCoordinate().getY();
+		assertEquals(yValue, 2.0, 0.01);
+		
+	}
+	
+	@Test
+	public void testGetZ(){
+		Coordinate cordCart1 = CartesianCoordinate.getCartesianCoordinatePointer(1, 2, 3);
+		double zValue = cordCart1.asCartesianCoordinate().getZ();
+		assertEquals(zValue, 3.0, 0.01);
+		
+	}
+	@Test
+	public void testGetCartesianCoordinatePointer(){
+		Coordinate cordCart1 = CartesianCoordinate.getCartesianCoordinatePointer(1, 2, 3);
+		Coordinate cordCart2 = CartesianCoordinate.getCartesianCoordinatePointer(1, 2, 3);
+		assertEquals(cordCart1, cordCart2);
+	}
+
 
 }
