@@ -81,6 +81,13 @@ public class GamepadPhotoFactory extends PhotoFactory {
 		}
 		return gamepadPhoto;
 	}
+	
+	public GamepadPhoto createGamepadPhoto(Gamepad gamepad) {
+		GamepadPhoto gamepadPhoto;
+		gamepadPhoto = new GamepadPhoto(gamepad);
+		return gamepadPhoto;
+	}
+	
 	/**
 	 * Method to set the singleton instance of GamepadPhotoFactory.
 	 */

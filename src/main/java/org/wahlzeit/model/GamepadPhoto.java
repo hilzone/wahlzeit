@@ -4,37 +4,17 @@ import static org.junit.Assert.assertNotNull;
 
 public class GamepadPhoto extends Photo {
 
+	/**
+	 * 
+	 */
+	//private static final long serialVersionUID = 1L;
+	private Gamepad gamepad;
+	public GamepadPhoto(Gamepad gamepad) {
+		super();
+		this.gamepad=gamepad;
+	}
+
 	
-	private String TypeOfGamepad = "";
-	private String ColorOfGamepad = "";
-
-	public String getColorOfGamepad() {
-		return ColorOfGamepad;
-	}
-
-	public void setColorOfGamepad(String colorOfGamepad) {
-		
-		try {
-			assertNotNull(colorOfGamepad);
-			} catch(Throwable e) {
-				throw new IllegalArgumentException("Null dectected, Color of Gamepad may not be null");
-			}
-		ColorOfGamepad = colorOfGamepad;
-	}
-
-	public String getTypeOfGamepad() {
-		return TypeOfGamepad;
-	}
-
-	public void setTypeOfGamepad(String typeOfGamepad) {
-		TypeOfGamepad = typeOfGamepad;
-		try {
-			assertNotNull(typeOfGamepad);
-			} catch(Throwable e) {
-				throw new IllegalArgumentException("Null dectected, Type of Gamepad may not be null");
-			}
-	}
-
 	public GamepadPhoto() {
 		super();
 		// TODO Auto-generated constructor stub
