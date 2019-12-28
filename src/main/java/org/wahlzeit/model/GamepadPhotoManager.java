@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 public class GamepadPhotoManager extends PhotoManager {
 
 	
-	protected static final GamepadPhotoManager instance= new GamepadPhotoManager();
+	protected static final GamepadPhotoManager instance= new GamepadPhotoManager(); //Called by ModelMain
 
 
 	

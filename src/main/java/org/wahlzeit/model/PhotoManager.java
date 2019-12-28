@@ -48,7 +48,7 @@ public class PhotoManager extends ObjectManager {
 	/**
 	 *
 	 */
-	protected static final PhotoManager instance = new PhotoManager();
+	protected static final PhotoManager instance = new GamepadPhotoManager(); //adjusted to use the GamepadPhotoManager() 
 
 	private static final Logger log = Logger.getLogger(PhotoManager.class.getName());
 

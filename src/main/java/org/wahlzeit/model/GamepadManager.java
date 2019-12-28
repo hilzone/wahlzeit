@@ -21,7 +21,7 @@ public class GamepadManager {
 	public synchronized Gamepad  createGamepad(String colorOfGamepad, String typeName){ //Has to be synchronized so that two Gamepads do not get the Same Id
 		assertIsValidGamepadTypeName(typeName);
 		GamepadType gt = getGamepadType(typeName);
-		Gamepad result = gt.createInstance(typeName);
+		Gamepad result = gt.createInstance(colorOfGamepad);
 		getGamepads().put(result.getId(), result);
 		return result;
 		}
